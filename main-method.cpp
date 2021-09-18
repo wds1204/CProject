@@ -23,6 +23,15 @@ void point_func(int* a,int *b){
     *b=200;
 
 }
+//回调函数
+void populate_array(int* array,size_t arraySize,int(*getNextValue)(void )){
+    for(size_t i=0; i<arraySize;i++){
+        array[i]=getNextValue();
+    }
+}
+int getNextValue(void){
+    return rand();
+}
 
 int main() {
     std::cout << "Hello, World!" << std::endl;
@@ -37,6 +46,12 @@ int main() {
     void(*funCp)(int* a,int *b)=point_func;
     funCp(&a,&b);
     printf("a==%d   b==%d\n",a,b);
+
+    int myArray[10];
+    populate_array(myArray,10,getNextValue);
+    for(int i=0;i<10;i++){
+        printf("%d ",myArray[i]);
+    }
     return 0;
 }
 //C++ 函数从上到下编译
